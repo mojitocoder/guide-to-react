@@ -141,8 +141,8 @@ const element = /*#__PURE__*/React.createElement("div", {
    ReactDOM.render(element, rootElement)
    ```
 10. React rendering is efficient. It uses an algorithm to compare the DOM trees to spot the difference and only apply re-rendering on those branches.
-   + This example show how React only render one `div` every 10 millisecs
-   ```jsx
+  + This example show how React only render one `div` every 10 millisecs
+  ```jsx
   const rootElement = document.getElementById("root")
   function showTime() {
     const date = new Date()
@@ -157,4 +157,6 @@ const element = /*#__PURE__*/React.createElement("div", {
     ReactDOM.render(element, rootElement)
   }
   setInterval(showTime, 10)
-   ```
+  ```
+  + How React renders UI fast:
+  > React builds and maintains an internal representation of the rendered UI (Virtual DOM). When a component’s props or state changes, React compares the newly returned element with the previously rendered one. When the two are not equal, React will update the DOM. Therefore, we have to be careful when changing the state.
