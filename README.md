@@ -96,7 +96,7 @@ const element = /*#__PURE__*/React.createElement("div", {
   + Is a js function
   + Should make use of `.children` property, as it will pick up the value between open and closing tags
   + Should start with a capital letter, by convention
-  + Has 3 ways to be used:
+  + Has 3 ways to be used, the last only possible if `.childen` is used to render:
   ```jsx
     const rootElement = document.getElementById("root")
     const Compo = (foo) => (
@@ -112,3 +112,6 @@ const element = /*#__PURE__*/React.createElement("div", {
     )
     ReactDOM.render(element, rootElement)
   ```
+  
+  
+
