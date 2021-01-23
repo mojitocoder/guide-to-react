@@ -239,7 +239,7 @@ const element = /*#__PURE__*/React.createElement("div", {
   + Each event handler is a function with an input parameter `event`, of type `SyntheticEvent`.
   + The browser's native event is available at: `event.nativeEvent` property
 
-13. Using React hook to maintain state
+13. Using `React.useState()` hook to maintain state
   + `React.useState()` returns an array of 2 elements, e.g. `const [name, setName] = React.useState('')`
   + Multiple states can be used by calling `React.useState` again
   + Use the first element as a read only variable, i.e. const
@@ -266,7 +266,7 @@ const element = /*#__PURE__*/React.createElement("div", {
   ReactDOM.render(element, rootElement)
   ```
 
-14. Managing side-effects using useEffect hook
+14. Managing side-effects using `useEffect` hook
   + `React.useEffect(() => {})` will trigger the input lambda everytime the component is rendered
   + `window.localStorage.setItem(key, val)` saves `val` into the browser's Local Storage
   + `window.localStorage.getItem(key)` get the value out
