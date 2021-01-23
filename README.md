@@ -311,3 +311,37 @@ const element = /*#__PURE__*/React.createElement("div", {
   ```
   + This helps optimise performance, since you may have multiple state variables, not all of them should trigger `useEffect`.
   + `eslint-plugin-react-hooks` npm [package](https://www.npmjs.com/package/eslint-plugin-react-hooks) to help keep track of the dependency array. Look at `exhaustive-deps` rule.
+
+17. Build custom hook
+  + Just like any other JS function
+  + Should have prefix `use` in name as a convention, e.g. so that `eslint-plugin-react-hooks` can pick it up
+  ```jsx
+  const rootElement = document.getElementById("root")
+  function useCustomHook(key, defaultVal = '') {
+    const [name, setName] = React.useState(
+      window.localStorage.getItem(key) || defaultVal
+    )
+    React.useEffect(() => {
+      window.localStorage.setItem(key, name)
+    }, [key, name])
+
+    return [name, setName]
+  }
+  function Greeting() {
+    const [name, setName] = useCustomHook('name')
+    const handleChange = event => {
+      setName(event.target.value)
+    }
+    return (
+      <div>
+        <form>
+          <label>Name: </label>
+          <input value={name} id="name" onChange={handleChange}/>
+        </form>
+        { name ? <strong>Hello {name}</strong> : 'Please type your name'}
+      </div>
+    )
+  }
+  const element = <Greeting />
+  ReactDOM.render(element, rootElement)
+  ```
