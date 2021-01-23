@@ -32,7 +32,7 @@ ReactDOM.render(element, rootElement)
 
 4. `jsx` is the syntax extension to JS that is used to build UI
 + Babel is needed to compile `jsx` in to plain Javascript, e.g.
-```
+```jsx
 const element = <div className="container">Hello</div>
 ```
 is compiled to
@@ -58,3 +58,4 @@ const element = /*#__PURE__*/React.createElement("div", {
     </script>
     ```
 + It is best to have the Babel compilation as part of a build pipeline.
+
