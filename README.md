@@ -7,6 +7,8 @@ Beginners' guide to React.JS
 
 2. Code sample: https://github.com/kentcdodds/beginners-guide-to-react/tree/egghead
 
+3. To get Babel standalone from UNPKG: https://unpkg.com/@babel/standalone/
+
 ## Lessons
 
 1. `browser-sync` to serve from a local folder, e.g.
@@ -88,4 +90,25 @@ const element = /*#__PURE__*/React.createElement("div", {
 
     </>
   )
+  ```
+
+8. React component
+  + Is a js function
+  + Should make use of `.children` property, as it will pick up the value between open and closing tags
+  + Should start with a capital letter, by convention
+  + Has 3 ways to be used:
+  ```jsx
+    const rootElement = document.getElementById("root")
+    const Compo = (foo) => (
+      <span>{foo.children}</span>
+    )
+    const element = (
+      <h1>
+        {Compo({children: "Hello"})}
+        <Compo children=" World" />
+        <br/>
+        <Compo>Goodbye World</Compo>
+      </h1>
+    )
+    ReactDOM.render(element, rootElement)
   ```
