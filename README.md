@@ -71,3 +71,21 @@ const element = /*#__PURE__*/React.createElement("div", {
   const element = <div>{smallHead} {bigHead}</div>
   ReactDOM.render(element, rootElement)
   ```
+
+7. Rendering React elements side by side using React.Fragement, e.g.
+```jsx
+const element = (
+  <React.Fragment>
+
+  </React.Fragment>
+)
+```
+  + React Fragment allows elements to be rendered without being nested into something like a div. It is very useful in some scenarios, like building a table.
+  + React Fragment can be used in a shorthand just with `<> </>`, e.g.
+  ```jsx
+  const element = (
+    <>
+
+    </>
+  )
+  ```
