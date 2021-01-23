@@ -232,3 +232,35 @@ const element = /*#__PURE__*/React.createElement("div", {
     )
     ReactDOM.render(element, rootElement)
     ```
+
+12. Event handling
+  + Event names are in camelCase, e.g. `onChange`, `onFocus`, `onBlur`
+  + Full list of supported event is [here](https://reactjs.org/docs/events.html)
+  + Each event handler is a function with an input parameter `event`, of type `SyntheticEvent`.
+  + The browser's native event is available at: `event.nativeEvent` property
+
+13. Using React hook to maintain state
+  + `React.useState()` returns an array of 2 elements, e.g. `const [name, setName] = React.useState('')`
+  + Use the first element as a read only variable, i.e. const
+  + Use the second element as a function to update the value of the state, i.e. `setName('new value')`
+  ```jsx
+  const rootElement = document.getElementById("root")
+  function Greeting() {
+    const [name, setName] = React.useState('')
+    const handleChange = event => {
+      console.log(event)
+      setName(event.target.value)
+    }
+    return (
+      <div>
+        <form>
+          <label>Name: </label>
+          <input id="name" onChange={handleChange}/>
+        </form>
+        { name ? <strong>Hello {name}</strong> : 'Please type your name'}
+      </div>
+    )
+  }
+  const element = <Greeting />
+  ReactDOM.render(element, rootElement)
+  ```
