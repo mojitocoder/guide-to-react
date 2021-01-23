@@ -112,6 +112,28 @@ const element = /*#__PURE__*/React.createElement("div", {
     )
     ReactDOM.render(element, rootElement)
   ```
-  
-  
 
+9. `propTypes` to validate input parameters
+   + `prop-types` npm package
+   + can be loaded directly from [UNPKG](https://unpkg.com/prop-types/)
+   + Only the non-minimised version of `prop-types` throws the validation errors. The `.min` version will just ignore it, e.g. you need to use this on your page:
+   ```html
+   <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+   ```
+   + React is smart enough to not run `prop-types` when using React package in production mode, rather than in development mode => no performance impact at runtime
+   + One step further: `prop-types` can be removed from production code using `babel-plugin-transform-react-remove-prop-types` npm package
+   + The code should look like this:
+   ```jsx
+   const rootElement = document.getElementById("root")
+   function SayHello({firstName, lastName = "Unknown"})    {
+      return (
+        <h1>Hello {firstName} {lastName}</h1>
+      )
+   }
+   SayHello.propTypes = {
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string
+   }
+   const element = <SayHello firstName="Quynh"/>
+   ReactDOM.render(element, rootElement)
+   ```

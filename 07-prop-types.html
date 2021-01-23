@@ -1,0 +1,25 @@
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@16.7.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.12.12/babel.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+  <script type="text/babel">
+    const rootElement = document.getElementById("root")
+
+    function SayHello({firstName, lastName = "Unknown"}){
+      return (
+        <h1>Hello {firstName} {lastName}</h1>
+      )
+    }
+
+    SayHello.propTypes = {
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string
+    }
+
+    const element = <SayHello firstName="Quynh"/>
+
+    ReactDOM.render(element, rootElement)
+  </script>
+</body>
