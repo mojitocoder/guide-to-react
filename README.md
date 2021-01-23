@@ -30,8 +30,7 @@ console.log(element)
 ReactDOM.render(element, rootElement)
 ```
 
-4. `jsx` is the syntax extension to JS that is used to build UI
-+ Babel is needed to compile `jsx` in to plain Javascript, e.g.
+4. `jsx` is the syntax extension to JS that is used to build UI. Babel is needed to compile `jsx` in to plain Javascript, e.g.
 ```jsx
 const element = <div className="container">Hello</div>
 ```
@@ -59,3 +58,16 @@ const element = /*#__PURE__*/React.createElement("div", {
     ```
 + It is best to have the Babel compilation as part of a build pipeline.
 
+6. `jsx`'s tips:
+  + Use `{}` to render a Javascript variable
+  + Pack properties into an object and spread them, e.g.
+  ```jsx
+  const rootElement = document.getElementById("root")
+  const children = "Hello World"
+  const className = "container"
+  const props = {children, className}
+  const bigHead = <h1 className={className}>{children}</h1>
+  const smallHead = <h2 {...props}></h2>
+  const element = <div>{smallHead} {bigHead}</div>
+  ReactDOM.render(element, rootElement)
+  ```
