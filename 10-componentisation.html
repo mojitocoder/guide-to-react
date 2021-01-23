@@ -1,0 +1,62 @@
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@16.7.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.12.12/babel.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+  <style>
+    .box {
+      border: 1px solid #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    .box--large {
+      width: 270px;
+      height: 270px;
+    }
+    .box--medium {
+      width: 180px;
+      height: 180px;
+    }
+    .box--small {
+      width: 90px;
+      height: 90px;
+    }
+  </style>
+  <script type="text/babel">
+    const rootElement = document.getElementById("root")
+
+    function Box({children, style, size, color="red", ...rest}) {
+      return (
+        <div
+          className={`box box--${size}`}
+          style={{fontStyle: "italic", backgroundColor: color, ...style}}  {...rest}>
+            {children}
+        </div>
+      )
+    }
+
+    Box.propTypes = {
+      size: PropTypes.string.isRequired,
+      color: PropTypes.string
+    }
+
+    const element = (
+      <>
+        <Box size="small" color="lightblue">
+          small lightblue box
+        </Box>
+        <Box size="medium" color="pink">
+          medium pink box
+        </Box>
+        <Box size="large" color="orange">
+          large orange box
+        </Box>
+      </>
+    )
+
+    ReactDOM.render(element, rootElement)
+  </script>
+</body>

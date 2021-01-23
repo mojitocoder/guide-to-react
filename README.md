@@ -160,3 +160,75 @@ const element = /*#__PURE__*/React.createElement("div", {
   ```
   + How React renders UI fast:
   > React builds and maintains an internal representation of the rendered UI (Virtual DOM). When a component’s props or state changes, React compares the newly returned element with the previously rendered one. When the two are not equal, React will update the DOM. Therefore, we have to be careful when changing the state.
+
+11. Steps to refactor repeated React code into components
+  + Notes:
+    + `className` is used in React instead of `class` in HTML, because `class` is a keyword in Javascript
+    + `className` expect a string of space separated values
+    + `style` expects a Javascript object, with property names in camel convention, e.g. backgroundColor, fontStyle etc.
+  + Steps:
+    1. Render all props as they are passed in
+    ```jsx
+    function Box(props) {
+      return (
+        <div {...props}></div>
+      )
+    }
+    ```
+    2. Refactor one property out at a time, keep the rest as is, e.g. `children`
+    ```jsx
+    function Box({children, ...rest}) {
+      return (
+        <div {...rest}>{children}</div>
+      )
+    }
+    ```
+    3. Extract `style`, spread it last to apply it over any default values
+    ```jsx
+    function Box({children, style, ...rest}) {
+      return (
+        <div {...rest} style={{fontStyle: "italic", ...style}}>{children}</div>
+      )
+    }
+    ```
+    4. Extract `size` out and use it to apply `className`
+    ```jsx
+    function Box({children, style, size, ...rest}) {
+      return (
+        <div className={`box box--${size}`} style={{fontStyle: "italic", ...style}}  {...rest} >
+          {children}
+        </div>
+      )
+    }
+    ```
+    5. Final result:
+    ```jsx
+    const rootElement = document.getElementById("root")
+    function Box({children, style, size, color="red", ...rest}) {
+      return (
+        <div
+          className={`box box--${size}`}
+          style={{fontStyle: "italic", backgroundColor: color, ...style}}  {...rest}>
+            {children}
+        </div>
+      )
+    }
+    Box.propTypes = {
+      size: PropTypes.string.isRequired,
+      color: PropTypes.string
+    }
+    const element = (
+      <>
+        <Box size="small" color="lightblue">
+          small lightblue box
+        </Box>
+        <Box size="medium" color="pink">
+          medium pink box
+        </Box>
+        <Box size="large" color="orange">
+          large orange box
+        </Box>
+      </>
+    )
+    ReactDOM.render(element, rootElement)
+    ```
