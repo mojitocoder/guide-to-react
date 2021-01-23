@@ -1,0 +1,31 @@
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@16.7.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.12.12/babel.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+  <script type="text/babel">
+    const rootElement = document.getElementById("root")
+
+    function CharCount({children = ""}) {
+      return (
+        <div>
+          {`The text "${children}" has `}
+          { children && children.length? `<strong>${children.length}</strong>`: 'no'}
+          {' characters'}
+        </div>
+      )
+    }
+
+    const element = (
+      <>
+        <div>This is <strong>me</strong></div>
+        <CharCount>Hello World</CharCount>
+        <CharCount>Life is beautiful</CharCount>
+        <CharCount></CharCount>
+      </>
+    )
+
+    ReactDOM.render(element, rootElement)
+  </script>
+</body>

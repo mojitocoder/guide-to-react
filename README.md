@@ -1,6 +1,9 @@
 Beginners' guide to React.JS
 ===
 
+## Questions
+1. Why is `<strong>` tag not rendered correctly in lesson 8?
+
 ## Reference
 
 1. Video guide from Ken Dodds at EggHead.io: https://egghead.io/courses/the-beginner-s-guide-to-react
@@ -136,4 +139,22 @@ const element = /*#__PURE__*/React.createElement("div", {
    }
    const element = <SayHello firstName="Quynh"/>
    ReactDOM.render(element, rootElement)
+   ```
+10. React rendering is efficient. It uses an algorithm to compare the DOM trees to spot the difference and only apply re-rendering on those branches.
+   + This example show how React only render one `div` every 10 millisecs
+   ```jsx
+  const rootElement = document.getElementById("root")
+  function showTime() {
+    const date = new Date()
+    const time = date.toLocaleTimeString()
+    const mil = date.getMilliseconds()
+
+    const element = (
+      <h1>
+        Current time is {time}:{mil}
+      </h1>
+    )
+    ReactDOM.render(element, rootElement)
+  }
+  setInterval(showTime, 10)
    ```
