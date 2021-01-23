@@ -7,7 +7,9 @@
     const rootElement = document.getElementById("root")
 
     function Greeting() {
-      const [name, setName] = React.useState(window.localStorage.getItem('name') || '')
+      const [name, setName] = React.useState(
+        window.localStorage.getItem('name') || ''
+      )
       React.useEffect(() => {
         window.localStorage.setItem('name', name)
       })

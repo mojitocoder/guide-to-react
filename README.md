@@ -270,6 +270,7 @@ const element = /*#__PURE__*/React.createElement("div", {
   + `React.useEffect(() => {})` will trigger the input lambda everytime the component is rendered
   + `window.localStorage.setItem(key, val)` saves `val` into the browser's Local Storage
   + `window.localStorage.getItem(key)` get the value out
+  + Value in Local Storage is persistent across page's reloads
   ```jsx
   const rootElement = document.getElementById("root")
   function Greeting() {
@@ -293,3 +294,20 @@ const element = /*#__PURE__*/React.createElement("div", {
   const element = <Greeting />
   ReactDOM.render(element, rootElement)
   ```
+
+15. Use a lazy initializer with `useState`
+  + Use can pass a `lazyFunc` into useState, instead of a value, i.e. `React.useState(lazyFunc)`
+  + `lazyFunc` will be evaluated once, synchronously on the initial load
+  + But it won't be evaluated again per state change
+  + This helps optimise performance of the React app
+
+16. Manage the `useEffect` dependency array
+  + `React.useEffect` accepts one optional variable: An array of state variables that will trigger the lambda
+  ```jsx
+  const [name, setName] = React.useState(window.localStorage.getItem('name') || '')
+  React.useEffect(() => {
+    window.localStorage.setItem('name', name)
+  }, [name])
+  ```
+  + This helps optimise performance, since you may have multiple state variables, not all of them should trigger `useEffect`.
+  + `eslint-plugin-react-hooks` npm [package](https://www.npmjs.com/package/eslint-plugin-react-hooks) to help keep track of the dependency array. Look at `exhaustive-deps` rule.
