@@ -241,6 +241,7 @@ const element = /*#__PURE__*/React.createElement("div", {
 
 13. Using React hook to maintain state
   + `React.useState()` returns an array of 2 elements, e.g. `const [name, setName] = React.useState('')`
+  + Multiple states can be used by calling `React.useState` again
   + Use the first element as a read only variable, i.e. const
   + Use the second element as a function to update the value of the state, i.e. `setName('new value')`
   ```jsx
@@ -256,6 +257,34 @@ const element = /*#__PURE__*/React.createElement("div", {
         <form>
           <label>Name: </label>
           <input id="name" onChange={handleChange}/>
+        </form>
+        { name ? <strong>Hello {name}</strong> : 'Please type your name'}
+      </div>
+    )
+  }
+  const element = <Greeting />
+  ReactDOM.render(element, rootElement)
+  ```
+
+14. Managing side-effects using useEffect hook
+  + `React.useEffect(() => {})` will trigger the input lambda everytime the component is rendered
+  + `window.localStorage.setItem(key, val)` saves `val` into the browser's Local Storage
+  + `window.localStorage.getItem(key)` get the value out
+  ```jsx
+  const rootElement = document.getElementById("root")
+  function Greeting() {
+    const [name, setName] = React.useState(window.localStorage.getItem('name') || '')
+    React.useEffect(() => {
+      window.localStorage.setItem('name', name)
+    })
+    const handleChange = event => {
+      setName(event.target.value)
+    }
+    return (
+      <div>
+        <form>
+          <label>Name: </label>
+          <input value={name} id="name" onChange={handleChange}/>
         </form>
         { name ? <strong>Hello {name}</strong> : 'Please type your name'}
       </div>
