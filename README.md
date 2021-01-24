@@ -1,3 +1,7 @@
+---
+typora-root-url: ./images/hook-flow.png
+---
+
 Beginners' guide to React.JS
 ===
 
@@ -345,3 +349,41 @@ const element = /*#__PURE__*/React.createElement("div", {
   const element = <Greeting />
   ReactDOM.render(element, rootElement)
   ```
+
+18. Manipulate the DOM with React refs
+  + `React.useRef()` is a hook that can be used to get reference access to, and to manipunate DOM
+  + 3 steps to use it:
+    + declaration, i.e. `const refDOM = React.useRef()`
+    + marking the React component, i.e. `<div ref={refDOM}></div>`
+    + accessing the object at rendering time with `.curent` property, i.e.
+    ```jsx
+    React.useEffect(() => {
+      const node = refDOM.current
+    })
+    ```
+
+19. Understanding React Hook Flow
+
+  + This diagram shows the flow of a Hooks component:
+  + ![hook-flow](/../hook-flow.png)
+
+20. Making basic forms with React
+  + Each button should have explicit type, because otherwise they will be implicitly assigned the type of `submit` (vs. `button` or `reset`)
+  + Use `htmlFor` for label to assign it to an input element. This is good for accessibility.
+  + Use `onSubmit` event on the form, rather than `onClick` event on the submit button. Because the form can be submitted by typing enter on the input boxes.
+  + For an intput element, `id` and `name` are interchangable.
+  + Inside event handler for `onSubmit`:
+    + `event.preventDefault()` to stop the default behaviour of doing a POST back to the same URL, i.e. causing a refresh
+    + `event.target.elements.<inputElementName>.value` to get the value of an input box
+    + You can also use `const refDom = React.useRef()` to point to the element, then do `refDom.current.value`
+  
+21. Making dynamic forms with React
+  
+  + Use `React.useState()` to create a state value
+  
+  + Use `onChange` event of the input element to sync value of the input box into state's value
+  
+  + You can then evaluate the value as the user types/clicks and give them dynamic feedback, i.e. not having to wait until they click submit.
+  
+    
+
