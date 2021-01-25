@@ -386,6 +386,10 @@ const element = /*#__PURE__*/React.createElement("div", {
   + Use `onChange` event of the input element to sync value of the input box into state's value
   
   + You can then evaluate the value as the user types/clicks and give them dynamic feedback, i.e. not having to wait until they click submit.
-  
-    
+
+22. Control form value
+  + For an input element, if you specify `value={someVal}`, React will set `someVal` into the input box, regardless of what the user puts in.
+  + It's a good place to downcase user's input automatically for example. They will see it in lowercase even if they try to hold down Shift key.
+
+
 
