@@ -7,6 +7,8 @@ Beginners' guide to React.JS
 
 ## Questions
 1. Why is `<strong>` tag not rendered correctly in lesson 8?
+2. Using `React.useState()` 's `setValue` function, why is the value not set immediately? i.e. if you refer to the `value` right away, it's the old value, not the new one. When will the assignment take place?
+3. 
 
 ## Reference
 
