@@ -391,5 +391,19 @@ const element = /*#__PURE__*/React.createElement("div", {
   + For an input element, if you specify `value={someVal}`, React will set `someVal` into the input box, regardless of what the user puts in.
   + It's a good place to downcase user's input automatically for example. They will see it in lowercase even if they try to hold down Shift key.
 
+23. Using React Error Boundaries to handler errors in React Components
+  + Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors and display a fallback UI instead of the compomnent tree that crashed.
+  + You can build a ReactErrorBoundary by declaring `class ErrorBoundary extends React.Component`
+  + But it's best to use `react-error-boundary` [npm package](https://www.npmjs.com/package/react-error-boundary).
+  + Notes: Error boundaries do not catch errors for:
+    + Event handlers
+    
+    + Async code, e.g. `setTimeout` of `requestAnimationFrame` callbacks
+    
+    + Server side rendering
+    
+    + Errors thrown in the error boundary itself
+    
+      
 
 
