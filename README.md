@@ -403,7 +403,14 @@ const element = /*#__PURE__*/React.createElement("div", {
     + Server side rendering
     
     + Errors thrown in the error boundary itself
-    
-      
+  
+24. Use the `key` prop when rendering a list with React
+  
+  + When you render a list, you `.map` a list of objects into a list of React components.
+  + It's essential to use a consistent and unique `key` prop so that React can keep track of which DOM element is which when it does the re-rendering.
 
+25. Lifting and colocating React State
+  + It's best to keep the state of an React component inside itself. This is called `colocating` state, making the code more maintainable.
+  + If you have a component outside that need that state, you need to lift the state out and put it in the lowest common parent component. The trick is to accept the read-only state and the handler to update state as two input parameters.
+  + You should refactor the code in both directions.
 
