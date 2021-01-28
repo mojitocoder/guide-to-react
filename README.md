@@ -1,7 +1,3 @@
----
-typora-root-url: ./images/hook-flow.png
----
-
 Beginners' guide to React.JS
 ===
 
@@ -366,8 +362,8 @@ const element = /*#__PURE__*/React.createElement("div", {
 
 19. Understanding React Hook Flow
 
-  + This diagram shows the flow of a Hooks component:
-  + ![hook-flow](/../hook-flow.png)
+This diagram shows the flow of a Hooks component:
+![hook-flow](./images/hook-flow.png)
 
 20. Making basic forms with React
   + Each button should have explicit type, because otherwise they will be implicitly assigned the type of `submit` (vs. `button` or `reset`)
