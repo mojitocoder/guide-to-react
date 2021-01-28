@@ -89,22 +89,50 @@
 
     // const element = <Login />
 
-    function Name() {
+    function Name({name, setName}) {
+      function changeHandler(event) {
+        setName(event.target.value)
+      }
+
       return (
         <div>
           <label forHtml="nameInput">Your name: </label>
-          <input type="text" name="nameInput" />
+          <input type="text" name="nameInput" value={name} onChange={changeHandler} />
+        </div>
+      )
+    }
+
+    function Animal({name, setName}) {
+      return (
+        <div>
+          <label>Your favourite animal: </label>
+          <input type="text" name="animalInput" value={name} onChange={(event) => {setName(event.target.value)}}/>
         </div>
       )
     }
 
     function App() {
+      const [name, setName] = React.useState('Bob')
+      const [animal, setAnimal] = React.useState('pegasus')
+
+      function Display({name, animal}) {
+        return (
+          <div>Hello {name}, your favourite animal is {animal}.</div>
+        )
+      }
+
       return (
         <>
           <h1>
             This is my super duper app
           </h1>
-          <Name />
+          <Name name={name} setName={setName} />
+          <br />
+          <br />
+          <Animal name={animal} setName={setAnimal} />
+          <br />
+          <br />
+          <Display name={name} animal={animal} />
         </>
       )
     }
