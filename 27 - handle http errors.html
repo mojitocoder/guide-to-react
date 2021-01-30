@@ -1,0 +1,102 @@
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.12.12/babel.js"></script>
+  <script type="text/babel">
+    const rootElement = document.getElementById("root")
+
+    function Profile({profile}) {
+      return (
+        <div>
+          <img src={profile.avatar_url} alt="Girl in a jacket" />
+          <p>Login name: {profile.login}</p>
+          <p>Biography: {profile.bio}</p>
+          <p>Created at: {profile.created_at}</p>
+        </div>
+      )
+    }
+
+    function GitHubProfile({username}) {
+      const [profile, setProfile] = React.useState(null)
+      const [error, setError] = React.useState(null)
+
+      React.useEffect(() => {
+        if (!username) {
+          return
+        } else {
+          getProfile(username).then(response => {
+            setProfile(response)
+          }, errorData => {
+            setError(errorData)
+          })
+        }
+      }, [username])
+
+      if (!username) {
+        return 'Submit a username'
+      }
+
+      if (error) {
+        return 'Oops, something snaps ...'
+      }
+
+      if (!profile) {
+        return '...' //loading message
+      }
+
+      if (profile.message) {
+        return (
+          <div>Username <strong>{username}</strong> does not exist!</div>
+        )
+      }
+
+      return (
+        <>
+          <div>GitHub profile for <strong>{username}</strong>:</div>
+          <Profile profile={profile} />
+          <div>{JSON.stringify(profile)}</div>
+        </>
+      )
+    }
+
+    function getProfile(username) {
+      return window
+        .fetch(`https://api.github.com/users/${username}`, {
+          method: 'GET',
+          headers: {
+            'content-type': 'application/json;charset=UTF-8',
+          }
+        })
+        .then(response => response.json())
+    }
+
+    function App() {
+      const [username, setUsername] = React.useState('')
+
+      function submitHandler(event) {
+        event.preventDefault()
+        setUsername(event.target.elements.usernameInput.value)
+      }
+
+      return (
+        <>
+          <h1>
+            GitHub name checker
+          </h1>
+          <form onSubmit={submitHandler}>
+            <label forHtml="usernameInput">username </label>
+            <input type="text" name="usernameInput" />
+            <button type="submit">Submit</button>
+          </form>
+          <br />
+          <GitHubProfile username={username} />
+        </>
+      )
+    }
+
+    const element = <App />
+
+    ReactDOM.render(element, rootElement)
+  </script>
+</body>
