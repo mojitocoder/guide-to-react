@@ -1,7 +1,7 @@
 <body>
   <div id="root"></div>
-  <script src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/react@17.0.1/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.12.12/babel.js"></script>
   <script type="text/babel">
     const rootElement = document.getElementById("root")
@@ -49,7 +49,7 @@
           <ul>
             {followers.map(follower => {
               return (
-                <li>{follower.login}</li>
+                <li key={follower.login}>{follower.login}</li>
               )
             })}
           </ul>
@@ -121,12 +121,12 @@
 
       function submitHandler(event) {
         event.preventDefault()
-        setUsername(username)
+        setUsername(event.target.elements.usernameInput.value)
       }
 
-      function changeHandler(event) {
-        setUsername(event.target.value)
-      }
+      // function changeHandler(event) {
+      //   setUsername(event.target.value)
+      // }
 
       return (
         <>
@@ -134,8 +134,8 @@
             GitHub name checker
           </h1>
           <form onSubmit={submitHandler}>
-            <label forHtml="usernameInput">username </label>
-            <input type="text" name="usernameInput" value={username} onChange={changeHandler} />
+            <label forhtml="usernameInput">username </label>
+            <input type="text" name="usernameInput"/>
             <button type="submit">Submit</button>
           </form>
           <br />
