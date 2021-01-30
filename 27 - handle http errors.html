@@ -6,13 +6,54 @@
   <script type="text/babel">
     const rootElement = document.getElementById("root")
 
+    function httpGet(url) {
+      return window
+        .fetch(url, {
+          method: 'GET',
+          headers: {
+            'content-type': 'application/json;charset=UTF-8',
+          }
+        })
+        .then(response => response.json())
+    }
+
+
     function Profile({profile}) {
+      const [followers, setFollowers] = React.useState([])
+      const [error, setError] = React.useState(null)
+      const [status, setStatus] = React.useState('idle')
+
+      React.useEffect(() => {
+        if (!profile.followers_url) {
+          return
+        }
+
+        setStatus('pending')
+        httpGet(profile.followers_url).then(response => {
+          setStatus('resolved')
+          setFollowers(response)
+        }, errorData => {
+          setStatus('rejected')
+          setError(errorData)
+        })
+      }, [profile])
+
       return (
         <div>
           <img src={profile.avatar_url} alt="Girl in a jacket" />
           <p>Login name: {profile.login}</p>
+          <p>Name: {profile.name}</p>
           <p>Biography: {profile.bio}</p>
           <p>Created at: {profile.created_at}</p>
+          <a href={profile.followers_url}>{profile.followers} followers</a>
+          <ul>
+            {followers.map(follower => {
+              return (
+                <li>{follower.login}</li>
+              )
+            })}
+          </ul>
+          <div>{JSON.stringify(profile)}</div>
         </div>
       )
     }
@@ -22,6 +63,10 @@
       const [profile, setProfile] = React.useState(null)
       const [error, setError] = React.useState(null)
 
+      function getProfile(username) {
+        return httpGet(`https://api.github.com/users/${username}`)
+      }
+    
       React.useEffect(() => {
         if (!username) {
           return
@@ -65,29 +110,22 @@
           <>
             <div>GitHub profile for <strong>{username}</strong>:</div>
             <Profile profile={profile} />
-            <div>{JSON.stringify(profile)}</div>
           </>
         )
       }
     }
 
-    function getProfile(username) {
-      return window
-        .fetch(`https://api.github.com/users/${username}`, {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json;charset=UTF-8',
-          }
-        })
-        .then(response => response.json())
-    }
 
     function App() {
-      const [username, setUsername] = React.useState('')
+      const [username, setUsername] = React.useState('pvdb')
 
       function submitHandler(event) {
         event.preventDefault()
-        setUsername(event.target.elements.usernameInput.value)
+        setUsername(username)
+      }
+
+      function changeHandler(event) {
+        setUsername(event.target.value)
       }
 
       return (
@@ -97,7 +135,7 @@
           </h1>
           <form onSubmit={submitHandler}>
             <label forHtml="usernameInput">username </label>
-            <input type="text" name="usernameInput" />
+            <input type="text" name="usernameInput" value={username} onChange={changeHandler} />
             <button type="submit">Submit</button>
           </form>
           <br />
