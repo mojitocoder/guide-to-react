@@ -17,8 +17,7 @@
         .then(response => response.json())
     }
 
-
-    function Profile({profile}) {
+    function Profile({profile, setUsername}) {
       const [followers, setFollowers] = React.useState([])
       const [error, setError] = React.useState(null)
       const [status, setStatus] = React.useState('idle')
@@ -38,6 +37,22 @@
         })
       }, [profile])
 
+      function clickHandler(login) {
+        setUsername(login)
+      }
+
+      function Followers({followers}) {
+        return (
+          <ul>
+            {followers.map(follower => {
+              return (
+                <li key={follower.login}><button onClick={() => {clickHandler(follower.login)}}>{follower.login}</button></li>
+              )
+            })}
+          </ul>
+        )
+      }
+
       return (
         <div>
           <img src={profile.avatar_url} alt="Girl in a jacket" />
@@ -46,19 +61,13 @@
           <p>Biography: {profile.bio}</p>
           <p>Created at: {profile.created_at}</p>
           <a href={profile.followers_url}>{profile.followers} followers</a>
-          <ul>
-            {followers.map(follower => {
-              return (
-                <li key={follower.login}>{follower.login}</li>
-              )
-            })}
-          </ul>
+          {status === 'resolved' ? <Followers followers={followers} /> : '...' }
           <div>{JSON.stringify(profile)}</div>
         </div>
       )
     }
 
-    function GitHubProfile({username}) {
+    function GitHubProfile({username, setUsername}) {
       const [status, setStatus] = React.useState('idle')
       const [profile, setProfile] = React.useState(null)
       const [error, setError] = React.useState(null)
@@ -109,7 +118,7 @@
         return (
           <>
             <div>GitHub profile for <strong>{username}</strong>:</div>
-            <Profile profile={profile} />
+            <Profile profile={profile} setUsername={setUsername} />
           </>
         )
       }
@@ -139,7 +148,7 @@
             <button type="submit">Submit</button>
           </form>
           <br />
-          <GitHubProfile username={username} />
+          <GitHubProfile username={username} setUsername={setUsername} />
         </>
       )
     }
