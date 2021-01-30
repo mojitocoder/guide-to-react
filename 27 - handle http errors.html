@@ -62,7 +62,6 @@
           <p>Created at: {profile.created_at}</p>
           <a href={profile.followers_url}>{profile.followers} followers</a>
           {status === 'resolved' ? <Followers followers={followers} /> : '...' }
-          <div>{JSON.stringify(profile)}</div>
         </div>
       )
     }
