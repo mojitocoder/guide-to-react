@@ -4,7 +4,7 @@ Beginners' guide to React.JS
 ## Questions
 1. Why is `<strong>` tag not rendered correctly in lesson 8?
 2. Using `React.useState()` 's `setValue` function, why is the value not set immediately? i.e. if you refer to the `value` right away, it's the old value, not the new one. When will the assignment take place?
-3. 
+3.
 
 ## Reference
 
@@ -349,7 +349,7 @@ const element = /*#__PURE__*/React.createElement("div", {
   ```
 
 18. Manipulate the DOM with React refs
-  + `React.useRef()` is a hook that can be used to get reference access to, and to manipunate DOM
+  + `React.useRef()` is a hook that can be used to get reference access to, and to manipulate DOM
   + 3 steps to use it:
     + declaration, i.e. `const refDOM = React.useRef()`
     + marking the React component, i.e. `<div ref={refDOM}></div>`
@@ -374,13 +374,13 @@ This diagram shows the flow of a Hooks component:
     + `event.preventDefault()` to stop the default behaviour of doing a POST back to the same URL, i.e. causing a refresh
     + `event.target.elements.<inputElementName>.value` to get the value of an input box
     + You can also use `const refDom = React.useRef()` to point to the element, then do `refDom.current.value`
-  
+
 21. Making dynamic forms with React
-  
+
   + Use `React.useState()` to create a state value
-  
+
   + Use `onChange` event of the input element to sync value of the input box into state's value
-  
+
   + You can then evaluate the value as the user types/clicks and give them dynamic feedback, i.e. not having to wait until they click submit.
 
 22. Control form value
@@ -393,15 +393,15 @@ This diagram shows the flow of a Hooks component:
   + But it's best to use `react-error-boundary` [npm package](https://www.npmjs.com/package/react-error-boundary).
   + Notes: Error boundaries do not catch errors for:
     + Event handlers
-    
+
     + Async code, e.g. `setTimeout` of `requestAnimationFrame` callbacks
-    
+
     + Server side rendering
-    
+
     + Errors thrown in the error boundary itself
-  
+
 24. Use the `key` prop when rendering a list with React
-  
+
   + When you render a list, you `.map` a list of objects into a list of React components.
   + It's essential to use a consistent and unique `key` prop so that React can keep track of which DOM element is which when it does the re-rendering.
 
@@ -409,4 +409,3 @@ This diagram shows the flow of a Hooks component:
   + It's best to keep the state of an React component inside itself. This is called `colocating` state, making the code more maintainable.
   + If you have a component outside that need that state, you need to lift the state out and put it in the lowest common parent component. The trick is to accept the read-only state and the handler to update state as two input parameters.
   + You should refactor the code in both directions.
-
