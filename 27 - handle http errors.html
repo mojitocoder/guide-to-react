@@ -18,46 +18,57 @@
     }
 
     function GitHubProfile({username}) {
+      const [status, setStatus] = React.useState('idle')
       const [profile, setProfile] = React.useState(null)
       const [error, setError] = React.useState(null)
 
       React.useEffect(() => {
         if (!username) {
           return
-        } else {
-          getProfile(username).then(response => {
-            setProfile(response)
-          }, errorData => {
-            setError(errorData)
-          })
         }
+
+        setStatus('pending')
+        getProfile(username).then(response => {
+          setProfile(response)
+          setStatus('resolved')
+        }, errorData => {
+          setError(errorData)
+          setStatus('rejected')
+        })
       }, [username])
 
-      if (!username) {
+      if (status === 'idle') {
         return 'Submit a username'
       }
 
-      if (error) {
-        return 'Oops, something snaps ...'
+      if (status === 'rejected') {
+        return (
+          <>
+            <div>Oops, something snaps ... </div>
+            <div>{JSON.stringify(error)}</div>
+          </>
+        )
       }
 
-      if (!profile) {
+      if (status === 'pending') {
         return '...' //loading message
       }
 
-      if (profile.message) {
+      if (status === 'resolved' && profile.message) {
         return (
           <div>Username <strong>{username}</strong> does not exist!</div>
         )
       }
 
-      return (
-        <>
-          <div>GitHub profile for <strong>{username}</strong>:</div>
-          <Profile profile={profile} />
-          <div>{JSON.stringify(profile)}</div>
-        </>
-      )
+      if (status === 'resolved') {
+        return (
+          <>
+            <div>GitHub profile for <strong>{username}</strong>:</div>
+            <Profile profile={profile} />
+            <div>{JSON.stringify(profile)}</div>
+          </>
+        )
+      }
     }
 
     function getProfile(username) {
