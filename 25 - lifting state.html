@@ -6,89 +6,6 @@
   <script type="text/babel">
     const rootElement = document.getElementById("root")
 
-    // function Login() {
-    //   const [username, setUsername] = React.useState('joe.blogg')
-    //   const [password, setPassword] = React.useState('')
-    //   const { ok: validUsername, message: usernameTip } = validateUsername(username)
-    //   const messagesPassword = validatePassword(password)
-    //   const passwordTip = `Password must have: ${messagesPassword.join(', ')}`
-    //   const validPassword = messagesPassword.length === 0
-
-    //   const usernameChangeHandler = (event) => {
-    //     setUsername(event.target.value.toLowerCase())
-    //   }
-
-    //   const passwordChangeHandler = (event) => {
-    //     setPassword(event.target.value)
-    //   }
-
-    //   const submitHandler = (event) => {
-    //     event.preventDefault() // without this, the form will do a POST to the same page
-    //     console.log(username, password)
-    //   }
-
-    //   function validateUsername(val) {
-    //     if (val.indexOf(" ") >= 0) {
-    //       return {
-    //         ok: false,
-    //         message: "username cannot contain blank spaces"
-    //       }
-    //     }
-
-    //     return {
-    //       ok: true,
-    //       message: ""
-    //     }
-    //   }
-
-    //   function validatePassword(val) {
-    //     let messages = []
-
-    //     if (val.length < 8) {
-    //       messages.push("8 or more characters")
-    //     }
-
-    //     const upperCount = [...val].map(char => char.charCodeAt())
-    //                                .filter(charCode => 65 <= charCode && charCode <= 90)
-    //                                .length
-
-    //     const lowerCount = [...val].map(char => char.charCodeAt())
-    //                                .filter(charCode => 97 <= charCode && charCode <= 122)
-    //                                .length
-    //     if (upperCount === 0) {
-    //       messages.push("at least one upper case letter")
-    //     }
-
-    //     if (lowerCount === 0) {
-    //       messages.push("at least one lower case letter")
-    //     }
-
-    //     return messages
-    //   }
-
-    //   const Tip = ({tip}) => (
-    //     <div style={{color: "red"}}>{tip}</div>
-    //   )
-
-    //   return (
-    //     <form onSubmit={submitHandler}>
-    //       <div>
-    //         <label forHtml="username">Username: </label>
-    //         <input type="text" name="username" value={username} onChange={usernameChangeHandler} />
-    //         { validUsername ? null : <Tip tip={usernameTip} />}
-    //         <br /><br />
-    //         <label forHtml="password">Password: </label>
-    //         <input type="password" name="password" value={password} onChange={passwordChangeHandler} />
-    //         { validPassword ? null : <Tip tip={passwordTip} />}
-    //         <br /><br />
-    //         <button type="submit" disabled={!(validUsername&&validPassword)} >Login</button>
-    //       </div>
-    //     </form>
-    //   )
-    // }
-
-    // const element = <Login />
-
     function Name({name, setName}) {
       function changeHandler(event) {
         setName(event.target.value)
@@ -117,7 +34,7 @@
 
       function Display({name, animal}) {
         return (
-          <div>Hello {name}, your favourite animal is {animal}.</div>
+          <div>Hello <strong>{name}</strong>, your favourite animal is <strong>{animal}</strong>.</div>
         )
       }
 
